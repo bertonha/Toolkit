@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>{{ title }}</h1>
+	<form action={{ action }} method="post"
+	{% if form.is_multipart %}enctype="multipart/form-data"{% endif %}>
+		{% csrf_token %}
+		{{ form.non_field_errors }}
+		{{ form.as_p }}
+		<input type="submit" id="submit" value="Save"/>
+	</form>
+{% endblock %}

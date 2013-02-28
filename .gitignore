@@ -1,0 +1,6 @@
+# Files to be ignored.
+.project
+.pydevproject
+*.pyc
+*.pyo
+*.db
