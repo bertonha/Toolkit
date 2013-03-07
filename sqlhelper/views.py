@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
 
+from sqlhelper import utils
 from sqlhelper.forms import InsertForm
 
 
@@ -10,7 +11,8 @@ def insert(request):
     if request.POST:
         form = InsertForm(request.POST, request.FILES)
         if form.is_valid():
-            sql = generate_insert(form.cleaned_data['table'], request.FILES['cvs'])
+            h, v = utils.read_csv(request.FILES['cvs'])
+            sql = utils.generate_insert_sql(form.cleaned_data['table'], h, v)
             return HttpResponse(sql, mimetype='text/x-sql')
     else:
         form = InsertForm()
